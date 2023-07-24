@@ -1,5 +1,24 @@
 let randomNumber = () => Math.floor(Math.random()*3);
 
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+const result = document.querySelector('#result');
+const userPlayed = document.querySelector('#userPlayed');
+const comPlayed = document.querySelector('#comPlayed');
+const startGame = document.querySelector("#startGame");
+const reset = document.querySelector('#reset');
+const scoreboard = document.querySelector('#scoreboard');
+const total = document.querySelector('#totalscore');
+const choice = document.querySelectorAll('.choice');
+
+let userScore = 0;
+let computerScore = 0;
+let totalScore = 0;
+
+startGame.addEventListener('click', game);
+reset.addEventListener('click', resetGame);
+
 function getComputerChoice(){
     let randNum = randomNumber();
     switch(randNum){
@@ -15,8 +34,8 @@ function getComputerChoice(){
     }
 }
 
-function playRound(userSelection, computerSelection) {
-
+function playRound(userSelection) {
+    let computerSelection = getComputerChoice();
     switch(userSelection) {
     case 'rock': 
         if (computerSelection === 'rock') return 'It\'s a tie'
@@ -33,28 +52,125 @@ function playRound(userSelection, computerSelection) {
         else if (computerSelection === 'paper') return "You win"
         else return "You lose"
         break;
-    default:
-        return "Not a valid entry";
-        break;
     }
 }
 
 function game(){
-    let userScore = 0;
-    let computerScore = 0;
-    let totalScore = 0;
+    rock.addEventListener('click', rockFunction);
+    scissors.addEventListener('click', scissorsFunction);
+    paper.addEventListener('click', paperFunction);
+    
+    for(let i = 0; i < choice.length ; i++){
+        choice[i].addEventListener('mouseover', function() {
+            choice[i].style.cssText = "background-color: rgb(171, 171, 171); color: rgb(37, 37, 37);"
+    })}
 
-    while(totalScore < 5){
-        let roundPlay = playRound(prompt('Enter rock, paper or scissors').toLowerCase(), getComputerChoice());
-        console.log(roundPlay)
+    for(let i = 0; i < choice.length ; i++){
+        choice[i].addEventListener('mouseout', function() {
+            choice[i].style.cssText = "background-color: rgb(37, 37, 37); color: rgb(171, 171, 171);"
+    })}
 
-        if(roundPlay === 'You win') userScore++;
-        else if(roundPlay === 'It\'s a tie' || roundPlay === 'Not a valid entry') continue;
-        else computerScore++;
+    userScore = 0;
+    computerScore = 0;
+    totalScore = 0;
 
-        ++totalScore;
-    }
-    return(`your score: ${userScore}, computer score: ${computerScore}`)
+    total.textContent = 'Game Started';
+
+    function rockFunction() {
+        result.textContent = playRound('rock');
+        userPlayed.textContent = 'Rock';
+    
+        if (result.textContent === 'You win') {
+            comPlayed.textContent = 'Scissors';
+            scoreboard.textContent = `your score: ${++userScore}, computer score: ${computerScore}`
+            total.textContent = ++totalScore;
+        }
+        else if (result.textContent === "It's a tie") {
+            comPlayed.textContent = userPlayed.textContent;
+            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`;
+        }
+        else {
+            comPlayed.textContent = 'Paper';
+            scoreboard.textContent = `your score: ${userScore}, computer score: ${++computerScore}`
+            total.textContent = ++totalScore;
+        }
+
+        if(totalScore === 5){
+            total.textContent = (userScore > computerScore) ? 'You Win!' : 'You Lose.';
+            rock.removeEventListener('click', rockFunction);
+            paper.removeEventListener('click', paperFunction);
+            scissors.removeEventListener('click', scissorsFunction);
+        }
+    };
+    
+    function paperFunction() {
+        result.textContent = playRound('paper');
+        userPlayed.textContent = 'Paper';
+    
+        if (result.textContent === 'You win') {
+            comPlayed.textContent = 'Rock';
+            userScore++;
+            total.textContent = ++totalScore;
+            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`
+        }
+        else if (result.textContent === "It's a tie") {
+            comPlayed.textContent = userPlayed.textContent;
+            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`;
+        }
+        else {
+            comPlayed.textContent = 'Scissors';
+            computerScore++;
+            total.textContent = ++totalScore;
+            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`
+        }
+
+        if(totalScore === 5){
+            total.textContent = (userScore > computerScore) ? 'You Win!' : 'You Lose.';
+            rock.removeEventListener('click', rockFunction);
+            paper.removeEventListener('click', paperFunction);
+            scissors.removeEventListener('click', scissorsFunction);
+        }
+    };
+    
+    function scissorsFunction() {
+        result.textContent = playRound('scissors');
+        userPlayed.textContent = 'Scissors';
+    
+        if (result.textContent === 'You win') {
+            comPlayed.textContent = 'Paper';
+            userScore++;
+            total.textContent = ++totalScore;
+            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`
+        }
+        else if (result.textContent === "It's a tie") {
+            comPlayed.textContent = userPlayed.textContent;
+            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`;
+        }
+        else {
+            comPlayed.textContent = 'Rock';
+            computerScore++;
+            total.textContent = ++totalScore;
+            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`
+        }
+
+        if(totalScore === 5){
+            total.textContent = (userScore > computerScore) ? 'You Win!' : 'You Lose.';
+            rock.removeEventListener('click', rockFunction);
+            paper.removeEventListener('click', paperFunction);
+            scissors.removeEventListener('click', scissorsFunction);
+        }
+    };
+}
+
+function resetGame() {
+    result.textContent = "";
+    userPlayed.textContent = "";
+    comPlayed.textContent = "";
+    userScore = 0;
+    computerScore = 0;
+    totalScore = 0;
+    total.textContent = '';
+    scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`;
 }
 
 //  i made the following counter function just to be sure that 

@@ -9,3 +9,22 @@ body {
     flex-direction: column;
     text-align: center;
 }
+
+button {
+    font-size: 24px;
+    background-color: rgb(171, 171, 171);
+    color: rgb(37, 37, 37);
+    border-radius: 10px;
+}
+
+button.choice {
+    width: 300px;
+    background-color: rgb(37, 37, 37);
+    color: rgb(171, 171, 171);
+    border: 2px solid rgb(171, 171, 171);
+}
+
+p#userPlayed, p#comPlayed, p#result {
+    height: 30px;
+    font-size: 25px;
+}
