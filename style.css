@@ -4,27 +4,69 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
+html {
+    height: 100vh;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
 body {
     display: flex;
     flex-direction: column;
     text-align: center;
+    height: -webkit-fill-available;
+    margin: 0;
 }
 
 button {
-    font-size: 24px;
+    font-size: 1.5rem;
     background-color: rgb(171, 171, 171);
     color: rgb(37, 37, 37);
     border-radius: 10px;
 }
 
 button.choice {
-    width: 300px;
+    flex: 0 1 500px;
     background-color: rgb(37, 37, 37);
     color: rgb(171, 171, 171);
     border: 2px solid rgb(171, 171, 171);
+    height: 100px;
+}
+
+div.choice-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 10vh 15px;
+}
+
+div.gameplay {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0;
 }
 
 p#userPlayed, p#comPlayed, p#result {
+    margin-top: 30px;
     height: 30px;
-    font-size: 25px;
+    font-size: 2rem;
+}
+
+p#result {
+    margin-top: auto;
+}
+
+div.game-buttons button {
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+p#totalscore, p#scoreboard {
+    height: 20px;
+}
+
+div.you-played, div.comp-played{
+    flex: 1;
 }
