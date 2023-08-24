@@ -8,7 +8,8 @@ const userPlayed = document.querySelector('#userPlayed');
 const comPlayed = document.querySelector('#comPlayed');
 const startGame = document.querySelector("#startGame");
 const reset = document.querySelector('#reset');
-const scoreboard = document.querySelector('#scoreboard');
+const userScoreDisplay = document.querySelector('#your-score');
+const compScoreDisplay = document.querySelector('#comp-score');
 const total = document.querySelector('#totalscore');
 const choice = document.querySelectorAll('.choice');
 
@@ -38,19 +39,19 @@ function playRound(userSelection) {
     let computerSelection = getComputerChoice();
     switch(userSelection) {
     case 'rock': 
-        if (computerSelection === 'rock') return 'It\'s a tie'
-        else if (computerSelection === 'paper') return "You win"
-        else return "You lose"
+        if (computerSelection === 'rock') return 'Round tie'
+        else if (computerSelection === 'paper') return "Round win"
+        else return "Round lose"
         break;
     case 'paper':
-        if (computerSelection === 'paper') return 'It\'s a tie'
-        else if (computerSelection === 'rock') return "You win"
-        else return "You lose"
+        if (computerSelection === 'paper') return 'Round tie'
+        else if (computerSelection === 'rock') return "Round win"
+        else return "Round lose"
         break;
     case 'scissors':
-        if (computerSelection === 'scissors') return 'It\'s a tie'
-        else if (computerSelection === 'paper') return "You win"
-        else return "You lose"
+        if (computerSelection === 'scissors') return 'Round tie'
+        else if (computerSelection === 'paper') return "Round win"
+        else return "Round lose"
         break;
     }
 }
@@ -80,18 +81,21 @@ function game(){
         result.textContent = playRound('rock');
         userPlayed.textContent = 'Rock';
     
-        if (result.textContent === 'You win') {
+        if (result.textContent === 'Round win') {
             comPlayed.textContent = 'Scissors';
-            scoreboard.textContent = `your score: ${++userScore}, computer score: ${computerScore}`
+            userScoreDisplay.textContent = ++userScore;
+            compScoreDisplay.textContent = computerScore;
             total.textContent = ++totalScore;
         }
-        else if (result.textContent === "It's a tie") {
+        else if (result.textContent === "Round tie") {
             comPlayed.textContent = userPlayed.textContent;
-            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`;
+            userScoreDisplay.textContent = userScore;
+            compScoreDisplay.textContent = computerScore;
         }
         else {
             comPlayed.textContent = 'Paper';
-            scoreboard.textContent = `your score: ${userScore}, computer score: ${++computerScore}`
+            userScoreDisplay.textContent = userScore;
+            compScoreDisplay.textContent = ++computerScore;
             total.textContent = ++totalScore;
         }
 
@@ -107,21 +111,22 @@ function game(){
         result.textContent = playRound('paper');
         userPlayed.textContent = 'Paper';
     
-        if (result.textContent === 'You win') {
+        if (result.textContent === 'Round win') {
             comPlayed.textContent = 'Rock';
-            userScore++;
             total.textContent = ++totalScore;
-            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`
+            userScoreDisplay.textContent = ++userScore;
+            compScoreDisplay.textContent = computerScore;
         }
-        else if (result.textContent === "It's a tie") {
+        else if (result.textContent === "Round tie") {
             comPlayed.textContent = userPlayed.textContent;
-            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`;
+            userScoreDisplay.textContent = userScore;
+            compScoreDisplay.textContent = computerScore;
         }
         else {
             comPlayed.textContent = 'Scissors';
-            computerScore++;
             total.textContent = ++totalScore;
-            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`
+            userScoreDisplay.textContent = userScore;
+            compScoreDisplay.textContent = ++computerScore;
         }
 
         if(totalScore === 5){
@@ -136,21 +141,22 @@ function game(){
         result.textContent = playRound('scissors');
         userPlayed.textContent = 'Scissors';
     
-        if (result.textContent === 'You win') {
+        if (result.textContent === 'Round win') {
             comPlayed.textContent = 'Paper';
-            userScore++;
             total.textContent = ++totalScore;
-            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`
+            userScoreDisplay.textContent = ++userScore;
+            compScoreDisplay.textContent = computerScore;
         }
-        else if (result.textContent === "It's a tie") {
+        else if (result.textContent === "Round tie") {
             comPlayed.textContent = userPlayed.textContent;
-            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`;
+            userScoreDisplay.textContent = userScore;
+            compScoreDisplay.textContent = computerScore;
         }
         else {
             comPlayed.textContent = 'Rock';
-            computerScore++;
             total.textContent = ++totalScore;
-            scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`
+            userScoreDisplay.textContent = userScore;
+            compScoreDisplay.textContent = ++computerScore;
         }
 
         if(totalScore === 5){
@@ -170,7 +176,8 @@ function resetGame() {
     computerScore = 0;
     totalScore = 0;
     total.textContent = '';
-    scoreboard.textContent = `your score: ${userScore}, computer score: ${computerScore}`;
+    userScoreDisplay.textContent = userScore;
+    compScoreDisplay.textContent = computerScore;
 }
 
 //  i made the following counter function just to be sure that 
